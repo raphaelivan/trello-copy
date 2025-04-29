@@ -12,11 +12,22 @@
   <div
     :title="task.createdAt.toLocaleString()"
     class="task bg-white rounded p-2 mb-2 shadow-sm max-w-[250px]"
+    :class="task.done ? 'done' : ''"
+
+    @mouseover="task.taskInFocus = true"
+    @mouseleave="task.taskInFocus = false"
     >
 
     <DragHandle class='pr-2' />
 
-    <span>
+    <span class="task-title">
+      <input
+        v-model="task.done"
+        v-show="task.taskInFocus || task.done"
+        type="checkbox"
+        class="align-middle"
+        />
+
       {{ task.title }}
     </span>
   </div>
@@ -37,4 +48,11 @@
   background: rgb(134, 134, 134);
 }
 
+.done {
+  background: rgb(174, 233, 174);
+}
+
+.done span.task-title {
+  @apply line-through
+}
 </style>

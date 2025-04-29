@@ -13,7 +13,9 @@
       emit('add', {
         id: nanoid(),
         title: title.value,
-        createdAt: new Date()
+        createdAt: new Date(),
+        done: false,
+        taskInFocus: false
       })
     }
 

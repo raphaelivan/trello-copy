@@ -10,18 +10,7 @@
     {
       id: nanoid(),
       title: 'Backlog',
-      tasks: [
-        {
-          id: nanoid(),
-          title: 'Task 1',
-          createdAt: new Date()
-        },
-        {
-          id: nanoid(),
-          title: 'Task 2',
-          createdAt: new Date()
-        }
-      ]
+      tasks: []
     },
     {
       id: nanoid(),
@@ -31,7 +20,13 @@
 
     {
       id: nanoid(),
-      title: 'QA',
+      title: 'Block',
+      tasks:[]
+    },
+
+    {
+      id: nanoid(),
+      title: 'Done',
       tasks:[]
     }
   ]);
@@ -68,7 +63,8 @@
               :group="{ name: 'tasks', pull: alt ? 'clone' : true }"
               itemKey="id"
               handle=".drag-handle"
-              :animation="150">
+              :animation="150"
+              @move="console.log('onMove', $event)">
 
 
               <template #item="{element : task}">
