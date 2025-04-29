@@ -6,7 +6,7 @@
 
   const alt = useKeyModifier('Alt');
 
-  const columns = ref([
+  const columns = useLocalStorage('task-board', [
     {
       id: nanoid(),
       title: 'Backlog',

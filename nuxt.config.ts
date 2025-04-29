@@ -4,5 +4,18 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: ['@nuxtjs/tailwindcss', '@vueuse/nuxt'],
-  ssr: false
+  ssr: false,
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
+      title: 'A Daily Board',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport',    content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'A Daily  Board' },
+      ],
+    },
+  }
 })
