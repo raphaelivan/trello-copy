@@ -4,6 +4,8 @@
   import { nanoid } from 'nanoid';
   import Draggable from 'vuedraggable';
 
+  const alt = useKeyModifier('Alt');
+
   const columns = ref([
     {
       id: nanoid(),
@@ -33,6 +35,10 @@
       tasks:[]
     }
   ]);
+
+  function addTask(column, task) {
+    column.tasks.push(task)
+  }
 </script>
 
 <template>
@@ -41,6 +47,8 @@
         v-model="columns"
         group="columns"
         itemKey="id"
+        :animation="150"
+        :handle="'.drag-handle'"
         class="flex gap-4 overflow-x-auto items-start">
 
         <template #item="{element : column}">
@@ -50,23 +58,35 @@
             <header
               class="font-bold mb-4"
             >
+              <DragHandle />
+
               {{ column.title }}
             </header>
 
-            <TrelloBoardTask
-              v-for="task in column.tasks"
-              :key="task.id"
-              :task="task"
-            />
+            <Draggable
+              v-model="column.tasks"
+              :group="{ name: 'tasks', pull: alt ? 'clone' : true }"
+              itemKey="id"
+              handle=".drag-handle"
+              :animation="150">
+
+
+              <template #item="{element : task}">
+                <TrelloBoardTask :task="task" />
+              </template>
+
+            </Draggable>
 
             <footer>
-              <button class="text-gray-500 mt-4">
-                + Add Card
-              </button>
+              <!-- Listen the add event from NewTask-->
+              <NewTask
+                @add="addTask(column, $event)"
+              />
             </footer>
+
           </div>
         </template>
     </Draggable>
-
   </div>
+
 </template>
